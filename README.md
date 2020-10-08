@@ -64,6 +64,7 @@ To use this role you can create a playbook such as the following:
   - name: Copy api_key to a variable
     set_fact:
       api_key: "{{ctrl_globals.json.currentStatus.agentSettings.apiKey}}"
+      nginx_controller_fqdn: "{{ nginx_controller_fqdn }}"
 
 - hosts: tag_new_gateway
   remote_user: ubuntu
@@ -86,6 +87,7 @@ To use this role you can create a playbook such as the following:
       name: nginxinc.nginx_controller.nginx_controller_agent
     vars:
       nginx_controller_api_key: "{{ hostvars['localhost']['api_key'] }}"
+      nginx_controller_fqdn: "{{ hostvars['localhost']['nginx_controller_fqdn'] }}"
 ```
 
 You can then run `ansible-playbook nginx_controller_agent.yaml` to execute the playbook.
